@@ -1,35 +1,62 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useEffect } from 'react';
+import './App.css';
+import CommentTable from './components/CommentTable';
+import Navbar from './components/Navbar';
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [comments, setComments] = useState([]);
+  const [postsById, setPostsById] = useState({});
+  const [filterText, setFilterText] = useState('');
+
+  // Fetch comments and posts, merge saved edits from localStorage
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem('editedComments') || '{}');
+
+    async function fetchData() {
+      try {
+        const [commentsRes, postsRes] = await Promise.all([
+          fetch('https://jsonplaceholder.typicode.com/comments'),
+          fetch('https://jsonplaceholder.typicode.com/posts')
+        ]);
+
+        const commentsData = await commentsRes.json();
+        const postsData = await postsRes.json();
+
+        const mergedComments = commentsData.map(c => ({ ...c, ...(saved[c.id] || {}) }));
+        const postMap = Object.fromEntries(postsData.map(p => [p.id, p.title]));
+
+        setComments(mergedComments);
+        setPostsById(postMap);
+      } catch (error) {
+        console.error("Data fetch failed:", error);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  // Handle inline edits and save them to localStorage
+  const handleEdit = (id, field, value) => {
+    setComments(prev =>
+      prev.map(c => c.id === id ? { ...c, [field]: value } : c)
+    );
+
+    const saved = JSON.parse(localStorage.getItem('editedComments') || '{}');
+    const existing = saved[id] || {};
+    existing[field] = value;
+    saved[id] = existing;
+    localStorage.setItem('editedComments', JSON.stringify(saved));
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="app">
+      <Navbar filterText={filterText} onFilterChange={setFilterText} />
+      <CommentTable
+        comments={comments}
+        postsById={postsById}
+        filterText={filterText}
+        onEdit={handleEdit}
+      />
+    </div>
+  );
 }
-
-export default App
