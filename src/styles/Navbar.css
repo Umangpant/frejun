@@ -1,0 +1,38 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  background: #333;
+  padding: 10px;
+  gap: 15px;
+  border-radius: 4px;
+}
+
+.logo {
+  height: 40px;
+  width: auto;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.nav-icon {
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s, color 0.2s;
+}
+.nav-icon:hover {
+  color: #1e90ff;
+  transform: scale(1.2);
+}
+
+.search-box {
+  flex: 1;
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+  font-size: 1rem;
+}
+.search-box:focus {
+  outline: none;
+  box-shadow: 0 0 3px #1e90ff;
+}
