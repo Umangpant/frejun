@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import '../src/styles/App.css';
 import CommentTable from './components/CommentTable';
 import Navbar from './components/Navbar';
 
