@@ -1,5 +1,5 @@
 import React from 'react';
-import './Navbar.css';
+import "../styles/Navbar.css";
 
 export default function Navbar({ filterText, onFilterChange }) {
   return (
@@ -18,3 +18,4 @@ export default function Navbar({ filterText, onFilterChange }) {
     </nav>
   );
 }
+
