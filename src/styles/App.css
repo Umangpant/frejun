@@ -1,46 +1,150 @@
 .app {
   font-family: 'Segoe UI', Arial, sans-serif;
-  background: #f7f9fa;
+  background: #f2f4f7;
   min-height: 100vh;
   padding: 0;
   margin: 0;
+  color: #333;
 }
 
 .table-container {
   margin: 40px auto;
-  max-width: 900px;
+  max-width: 1000px;
   background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-  padding: 32px 24px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  overflow-x: auto;
 }
+
+.comment-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+  font-size: 0.95rem;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.comment-table thead {
+  background: #007bff;
+  color: white;
+}
+
+.comment-table th,
+.comment-table td {
+  padding: 14px 18px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  vertical-align: top;
+}
+
+.comment-table tbody tr:hover {
+  background-color: #f1f8ff;
+  transition: background 0.3s ease;
+}
+
+
+.inplace-input {
+  font-size: 0.95rem;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.inplace-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
 
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 18px;
-  gap: 16px;
+  margin-top: 24px;
+  gap: 14px;
+  flex-wrap: wrap;
 }
 
 .pagination button {
   background: #007bff;
   color: #fff;
   border: none;
-  padding: 7px 18px;
-  border-radius: 6px;
+  padding: 10px 20px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 1rem;
-  transition: background 0.2s;
+  font-weight: 500;
+  transition: background 0.25s;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: #0056b3;
 }
 
 .pagination button:disabled {
-  background: #b0c4de;
+  background: #c0c8d1;
   cursor: not-allowed;
 }
 
 .pagination span {
   font-weight: 500;
-  color: #333;
   font-size: 1rem;
+  color: #444;
+}
+
+  
+@media (max-width: 768px) {
+  .table-container {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .comment-table {
+    font-size: 0.85rem;
+    min-width: 100%;
+  }
+
+  .comment-table th,
+  .comment-table td {
+    padding: 10px;
+  }
+
+  .pagination {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .pagination button {
+    width: 100%;
+    max-width: 200px;
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .comment-table {
+    font-size: 0.8rem;
+  }
+
+  .comment-table th,
+  .comment-table td {
+    padding: 8px;
+  }
+
+  .inplace-input {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+  }
+
+  .pagination button {
+    padding: 8px 14px;
+    font-size: 0.9rem;
+  }
 }
