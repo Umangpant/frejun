@@ -1,0 +1,22 @@
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Set font and background */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #1a0606;
+  color: #333;
+  line-height: 1.6;
+}
+html, body, #root {
+  height: 100%;
+}
+
+/* Smooth transitions for hover effects */
+button, input {
+  transition: all 0.2s ease-in-out;
+}
